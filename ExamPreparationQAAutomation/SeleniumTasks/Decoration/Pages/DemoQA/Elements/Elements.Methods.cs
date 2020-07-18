@@ -4,6 +4,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using SeleniumExtras.PageObjects;
+using SeleniumTasks.Decoration.Pages.DemoQA.Elements.Model;
 using StabilizeTestsDemos.ThirdVersion;
 using System;
 using System.Collections.Generic;
@@ -13,20 +14,22 @@ using System.Threading;
 namespace Exam
 {
     public partial class Elements : BasePage
-
-    {
-
+            {
         public Elements(WebDriver driver2)
             : base(driver2)
         {
         }
 
-        public void FillTextBox(WebElement UserName, WebElement UserEmail, WebElement CurrentAddress)
+        public void FillOne(WebElement element, TextBoxModel user, string panel)
         {
-            UserName.SetText("Ani");
-            UserEmail.SetText("mail@gmail.com");
-            CurrentAddress.SetText("Kuku Buki");
+            Builder.Click(element.WrappedElement).SendKeys(user.userEmail).Perform();
+        }
 
+        public void FillTextBox(WebElement UserName, WebElement UserEmail, WebElement CurrentAddress,TextBoxModel user)
+        {
+            UserName.SetText(user.userName);
+            UserEmail.SetText(user.userEmail);
+            CurrentAddress.SetText(user.currentAddress);
         }
 
         public void CheckCheckButton(WebElement element)
@@ -56,8 +59,3 @@ namespace Exam
         }
     }
     }
-
-    
-    
-
-

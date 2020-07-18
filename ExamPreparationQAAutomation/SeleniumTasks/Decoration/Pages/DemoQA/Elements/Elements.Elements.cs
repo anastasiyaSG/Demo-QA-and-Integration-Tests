@@ -31,6 +31,9 @@ namespace Exam
 
         public WebElement OutPutText => Driver.FindElement(By.XPath(".//*[@id='output']"));
 
+        // Try TestCase
+        public WebElement FillPannel(string pannel) => Driver.FindElement(By.XPath($"//*[@id='{pannel}-wrapper']"));
+
         // Check Box
         public WebElement CheckBox => Driver.FindElement(By.XPath(".//*[normalize-space(text())='Check Box']"));
 

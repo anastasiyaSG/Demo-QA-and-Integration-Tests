@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework.Interfaces;
 using System.Threading;
+using SeleniumTasks.Decoration.Pages.DemoQA.Elements.Model;
 
 namespace Exam.Tests
 {
@@ -38,11 +39,28 @@ namespace Exam.Tests
         public void TextBox()
         {
             _elements.TextBox.Click();
+            var user = TextBoxFactory.Create();
 
-            _elements.FillTextBox(_elements.UserName, _elements.UserEmail, _elements.CurrentAddress);
+            _elements.FillTextBox(_elements.UserName, _elements.UserEmail, _elements.CurrentAddress,user);
             _elements.ScrollTo(_elements.TextBoxSubmit).Click();
 
-            StringAssert.Contains("Kuku Buki", _elements.OutPutText.Text);
+            StringAssert.Contains("Kuku Buku", _elements.OutPutText.Text);
+        }
+
+        [Test]
+        [TestCase("userName")]
+        [TestCase("userEmail")]
+        [TestCase("currentAddress")]
+
+        public void FillOneOfPannels(string pannel)
+        {
+            _elements.TextBox.Click();
+
+            var user = TextBoxFactory.Create();
+            _elements.FillOne(_elements.FillPannel(pannel), user, pannel);
+            _elements.ScrollTo(_elements.TextBoxSubmit).Click();
+
+            StringAssert.Contains("peshka@abv.bg", _elements.OutPutText.Text);
         }
 
         [Test]
